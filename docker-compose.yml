@@ -1,5 +1,5 @@
 version: "3.8"
-
+# docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) 
 services: 
   app:
     ports:
@@ -10,7 +10,9 @@ services:
       context: ./
       dockerfile: Dockerfiles/app/Dockerfile
     volumes:
-      - ./:/app
+      - ./:/app:rw
+    networks:  
+      - parco-test-network
   database:
     image: postgres:latest
     ports:
@@ -22,3 +24,8 @@ services:
     restart: always
     volumes:
       - ./db/postgres:/var/lib/postgresql/data 
+    networks:  
+      - parco-test-network
+
+networks:
+  parco-test-network:
