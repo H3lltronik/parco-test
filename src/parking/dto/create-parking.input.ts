@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsIn, Min, Max } from 'class-validator';
+import { InputType, Int, Field } from '@nestjs/graphql';
+import { IsIn, IsNotEmpty, Max, Min } from 'class-validator';
+import { UniqueName } from '../validations/uniqueName';
 
 // Cuando se crea un nuevo estacionamiento, la request debe proporcionar:
 // ● name (nombre)
@@ -7,7 +9,7 @@ import { IsNotEmpty, IsIn, Min, Max } from 'class-validator';
 // ● parkingType. Existen diferentes tipos de estacionamiento, los cuales son:
 // ○ 1. public
 // ○ 2. private
-// ○ 3. courtesy
+// ○ 3. courtes
 
 // Además, como reglas de negocio debemos considerar
 // ● Si el número de cajones de estacionamiento es menor a 50, mandar un
@@ -18,19 +20,27 @@ import { IsNotEmpty, IsIn, Min, Max } from 'class-validator';
 // Lo que se espera de este caso de uso es que se retorne del servidor un objeto
 // con la información del estacionamiento y su Id único.
 
-export class CreateParkingDto {
+@InputType()
+export class CreateParkingInput {
   @IsNotEmpty({ message: 'El nombre es requerido' })
+  @UniqueName({ message: 'El nombre ya existe' })
+  @Field(() => String, { description: 'Nombre del estacionamiento' })
   name: string;
 
-  @IsNotEmpty({ message: 'La dirección es requerida' })
-  @Min(50, { message: 'El estacionamiento es muy pequeño' })
+  @IsNotEmpty({ message: 'El número de cajones es requerido' })
   @Max(1500, { message: 'El estacionamiento es muy grande' })
+  @Min(50, { message: 'El estacionamiento es muy pequeño' })
+  @Field(() => Int, { description: 'Número de cajones del estacionamiento' })
   spots: number;
 
-  @IsNotEmpty({ message: 'El contacto es requerido' })
+  @IsNotEmpty({ message: 'El teléfono de contacto es requerido' })
+  @Field(() => String, { description: 'Teléfono de contacto' })
   contact: string;
 
   @IsNotEmpty({ message: 'El tipo de estacionamiento es requerido' })
-  @IsIn(['public', 'private', 'courtesy'])
+  @IsIn(['public', 'private', 'courtes'], {
+    message: 'El tipo de estacionamiento debe ser public, private o courtes',
+  })
+  @Field(() => String, { description: 'Tipo de estacionamiento' })
   parkingType: string;
 }

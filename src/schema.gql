@@ -1,0 +1,60 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Parking {
+  """Id único del estacionamiento"""
+  id: Int!
+
+  """Nombre del estacionamiento"""
+  name: String!
+
+  """Número de cajones del estacionamiento"""
+  spots: Int!
+
+  """Teléfono de contacto"""
+  contact: String!
+
+  """Tipo de estacionamiento"""
+  parkingType: String!
+}
+
+type Query {
+  parkings: [Parking!]!
+  parking(id: Int): Parking!
+}
+
+type Mutation {
+  createParking(createParkingInput: CreateParkingInput!): Parking!
+  updateParking(updateParkingInput: UpdateParkingInput!): Parking!
+  removeParking(id: Int!): Parking!
+}
+
+input CreateParkingInput {
+  """Nombre del estacionamiento"""
+  name: String!
+
+  """Número de cajones del estacionamiento"""
+  spots: Int!
+
+  """Teléfono de contacto"""
+  contact: String!
+
+  """Tipo de estacionamiento"""
+  parkingType: String!
+}
+
+input UpdateParkingInput {
+  """Nombre del estacionamiento"""
+  name: String
+
+  """Número de cajones del estacionamiento"""
+  spots: Int
+
+  """Teléfono de contacto"""
+  contact: String
+
+  """Tipo de estacionamiento"""
+  parkingType: String
+  id: Int!
+}

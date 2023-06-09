@@ -1,7 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ParkingController } from './parking.controller';
+import { ParkingService } from './parking.service';
+import { ParkingResolver } from './parking.resolver';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Parking } from './entities/parking.entity';
+
+const parkingRepository = TypeOrmModule.forFeature([Parking]);
 
 @Module({
-  controllers: [ParkingController]
+  imports: [parkingRepository],
+  providers: [ParkingResolver, ParkingService],
 })
 export class ParkingModule {}
