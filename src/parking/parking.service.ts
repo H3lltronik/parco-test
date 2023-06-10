@@ -1,14 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { CreateParkingInput } from './dto/create-parking.input';
-import { UpdateParkingInput } from './dto/update-parking.input';
-import { Parking } from './entities/parking.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { FindAllArgs } from './dto/find-all-parking.input';
-import { FoundAllParkingOutput } from './dto/found-all-parking.output';
-import { CheckInInput } from './dto/check-in.input';
+import { CheckInInput, CheckInOutput } from './dto/check-in';
+import { CreateParkingInput } from './dto/create-parking';
+import { FindAllArgs, FoundAllParkingOutput } from './dto/find-all';
+import { UpdateParkingInput } from './dto/update-parking';
+import { Parking } from './entities/parking.entity';
 import { CheckInFactory } from './lib/checkIn';
-import { CheckInOutput } from './dto/check-in.output';
 
 @Injectable()
 export class ParkingService {

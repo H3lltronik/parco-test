@@ -1,6 +1,6 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { IsIn, IsNotEmpty, Max, Min } from 'class-validator';
-import { UniqueName } from '../validations/uniqueName';
+import { UniqueName } from 'src/parking/validations/uniqueName';
 
 @InputType()
 export class CreateParkingInput {

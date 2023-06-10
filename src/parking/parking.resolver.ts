@@ -1,12 +1,10 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { ParkingService } from './parking.service';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { CheckInInput, CheckInOutput } from './dto/check-in';
+import { CreateParkingInput } from './dto/create-parking';
+import { FindAllArgs, FoundAllParkingOutput } from './dto/find-all';
+import { UpdateParkingInput } from './dto/update-parking';
 import { Parking } from './entities/parking.entity';
-import { CreateParkingInput } from './dto/create-parking.input';
-import { UpdateParkingInput } from './dto/update-parking.input';
-import { FindAllArgs } from './dto/find-all-parking.input';
-import { FoundAllParkingOutput } from './dto/found-all-parking.output';
-import { CheckInOutput } from './dto/check-in.output';
-import { CheckInInput } from './dto/check-in.input';
+import { ParkingService } from './parking.service';
 
 @Resolver(() => Parking)
 export class ParkingResolver {

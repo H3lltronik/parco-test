@@ -1,6 +1,6 @@
 import { Max, Min } from 'class-validator';
-import { CreateParkingInput } from './create-parking.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { CreateParkingInput } from '../create-parking/create-parking.input';
 
 @InputType()
 export class UpdateParkingInput extends PartialType(CreateParkingInput) {

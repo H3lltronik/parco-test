@@ -1,5 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { IsIn, IsNotEmpty } from 'class-validator';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class CheckInOutput {

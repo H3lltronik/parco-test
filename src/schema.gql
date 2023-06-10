@@ -2,6 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CheckInOutput {
+  """Status of the checkIn"""
+  status: Boolean!
+
+  """Error code"""
+  errorCode: String
+
+  """Error message"""
+  message: String
+}
+
 type Parking {
   """Id único del estacionamiento"""
   id: Int!
@@ -36,17 +47,6 @@ type FoundAllParkingOutput {
 
   """Lista de estacionamientos"""
   data: [Parking!]
-}
-
-type CheckInOutput {
-  """Status of the checkIn"""
-  status: Boolean!
-
-  """Error code"""
-  errorCode: String
-
-  """Error message"""
-  message: String
 }
 
 type Query {
