@@ -1,27 +1,22 @@
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import {
-  registerDecorator,
+  ValidationArguments,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-  ValidationArguments,
+  registerDecorator,
 } from 'class-validator';
-import { Repository } from 'typeorm';
-import { Parking } from '../entities/parking.entity';
+import { ParkingService } from '../parking.service';
 
 @ValidatorConstraint({ async: true })
+@Injectable()
 export class UniqueNameConstraint implements ValidatorConstraintInterface {
-  constructor(
-    @InjectRepository(Parking) private parkingRepository: Repository<Parking>,
-  ) {}
+  constructor(protected readonly parkingService: ParkingService) {}
 
-  validate(name: any, args: ValidationArguments) {
-    const parkingLoader = this.parkingRepository.findOne({ where: { name } });
+  async validate(name: any, args: ValidationArguments) {
+    const parking = await this.parkingService.findOneByName(name);
 
-    return parkingLoader.then((parking) => {
-      if (parking) return false;
-      return true;
-    });
+    return !parking;
   }
 }
 

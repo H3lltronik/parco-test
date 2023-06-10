@@ -1,46 +1,45 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field, ArgsType } from '@nestjs/graphql';
 import { IsIn, IsNotEmpty, Max, Min } from 'class-validator';
 import { UniqueName } from '../validations/uniqueName';
 
-// Cuando se crea un nuevo estacionamiento, la request debe proporcionar:
-// ● name (nombre)
-// ● spots (número de cajones del estacionamiento)
-// ● contact (teléfono)
-// ● parkingType. Existen diferentes tipos de estacionamiento, los cuales son:
-// ○ 1. public
-// ○ 2. private
-// ○ 3. courtes
+// Obtener una lista de todos los estacionamientos
+// registrados en la base de datos
+// Se espera que los resultados se retornen paginados, con opciones de mandar los
+// siguientes parámetros:
+// ● skip - que permite saltar un x número de páginas
+// ● limit - para limitar el número de elementos de la lista.
+// ● order - para ordenar los resultados de forma ascendente o descendente (se
+// debería poder ordenar por cualquier propiedad)
+// Ejemplo de respuesta:
+// {
+// "totalItems": 1,
+// "data": [
+// {
+// "id": "490781b9-b7ba-41f0-8153-e9b7e7b9c353"
+// "name": "Plaza acueducto",
+// "contact": "+523382102919",
+// "spots": 420,
+// "createdAt": "2023-03-21T08:00:23Z",
+// "parkingType": "public"
+// }
+// ]
+// }
 
-// Además, como reglas de negocio debemos considerar
-// ● Si el número de cajones de estacionamiento es menor a 50, mandar un
-// error indicando que el estacionamiento es muy pequeño.
-// ● Si el número de cajones del estacionamiento es mayor a 1500, mandar un
-// error indicando que el estacionamiento es muy grande.
-// ● El nombre no esté repetido
-// Lo que se espera de este caso de uso es que se retorne del servidor un objeto
-// con la información del estacionamiento y su Id único.
+@ArgsType()
+export class FindAllArgs {
+  @Field({ description: 'Saltar un X numero de paginas' })
+  skip: number;
 
-@InputType()
-export class CreateParkingInput {
-  @IsNotEmpty({ message: 'El nombre es requerido' })
-  @UniqueName({ message: 'El nombre ya existe' })
-  @Field(() => String, { description: 'Nombre del estacionamiento' })
-  name: string;
-
-  @IsNotEmpty({ message: 'El número de cajones es requerido' })
-  @Max(1500, { message: 'El estacionamiento es muy grande' })
-  @Min(50, { message: 'El estacionamiento es muy pequeño' })
-  @Field(() => Int, { description: 'Número de cajones del estacionamiento' })
-  spots: number;
-
-  @IsNotEmpty({ message: 'El teléfono de contacto es requerido' })
-  @Field(() => String, { description: 'Teléfono de contacto' })
-  contact: string;
-
-  @IsNotEmpty({ message: 'El tipo de estacionamiento es requerido' })
-  @IsIn(['public', 'private', 'courtes'], {
-    message: 'El tipo de estacionamiento debe ser public, private o courtes',
+  @Field({
+    description: 'Limitar el numero de elementos de la lista',
   })
-  @Field(() => String, { description: 'Tipo de estacionamiento' })
-  parkingType: string;
+  limit: number;
+
+  @Field({
+    description: 'Ordenar los resultados de forma ascendente o descendente',
+  })
+  @IsIn(['ASC', 'DESC'], {
+    message: 'El orden debe ser ASC o DESC',
+  })
+  order: string;
 }

@@ -4,9 +4,6 @@ import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 @ObjectType()
 export class Parking {
-  // @Field(() => Int, {description: 'Example field (placeholder)'})
-  // exampleField: number;
-
   @PrimaryGeneratedColumn()
   @Field(() => Int, { description: 'Id único del estacionamiento' })
   id: number;
@@ -26,4 +23,12 @@ export class Parking {
   @Column()
   @Field(() => String, { description: 'Tipo de estacionamiento' })
   parkingType: string;
+
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Field(() => Date, { description: 'Fecha de creación' })
+  createdAt: Date;
+
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Field(() => Date, { description: 'Fecha de actualización' })
+  updatedAt: Date;
 }

@@ -3,6 +3,8 @@ import { ParkingService } from './parking.service';
 import { Parking } from './entities/parking.entity';
 import { CreateParkingInput } from './dto/create-parking.input';
 import { UpdateParkingInput } from './dto/update-parking.input';
+import { FindAllArgs } from './dto/find-all-parking.input';
+import { FoundAllParkingOutput } from './dto/found-all-parking.output';
 
 @Resolver(() => Parking)
 export class ParkingResolver {
@@ -15,9 +17,11 @@ export class ParkingResolver {
     return this.parkingService.create(createParkingInput);
   }
 
-  @Query(() => [Parking], { name: 'parkings' })
-  findAll() {
-    return this.parkingService.findAll();
+  @Query(() => FoundAllParkingOutput, { name: 'parkings' })
+  async findAll(
+    @Args() findAllArgs: FindAllArgs,
+  ): Promise<FoundAllParkingOutput> {
+    return await this.parkingService.findAll(findAllArgs);
   }
 
   @Query(() => Parking, { name: 'parking' })
@@ -26,10 +30,10 @@ export class ParkingResolver {
   }
 
   @Mutation(() => Parking)
-  updateParking(
+  async updateParking(
     @Args('updateParkingInput') updateParkingInput: UpdateParkingInput,
   ) {
-    return this.parkingService.update(
+    return await this.parkingService.update(
       updateParkingInput.id,
       updateParkingInput,
     );
