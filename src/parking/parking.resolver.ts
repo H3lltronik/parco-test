@@ -5,6 +5,8 @@ import { CreateParkingInput } from './dto/create-parking.input';
 import { UpdateParkingInput } from './dto/update-parking.input';
 import { FindAllArgs } from './dto/find-all-parking.input';
 import { FoundAllParkingOutput } from './dto/found-all-parking.output';
+import { CheckInOutput } from './dto/check-in.output';
+import { CheckInInput } from './dto/check-in.input';
 
 @Resolver(() => Parking)
 export class ParkingResolver {
@@ -37,6 +39,12 @@ export class ParkingResolver {
       updateParkingInput.id,
       updateParkingInput,
     );
+  }
+
+  @Mutation(() => CheckInOutput)
+  async checkIn(@Args('checkInInput') checkInInput: CheckInInput) {
+    const result = await this.parkingService.checkIn(checkInInput);
+    return result;
   }
 
   @Mutation(() => Parking)

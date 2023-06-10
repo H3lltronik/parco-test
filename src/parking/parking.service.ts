@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateParkingInput } from './dto/create-parking.input';
 import { UpdateParkingInput } from './dto/update-parking.input';
 import { Parking } from './entities/parking.entity';
@@ -6,11 +6,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FindAllArgs } from './dto/find-all-parking.input';
 import { FoundAllParkingOutput } from './dto/found-all-parking.output';
+import { CheckInInput } from './dto/check-in.input';
+import { CheckInFactory } from './lib/checkIn';
+import { CheckInOutput } from './dto/check-in.output';
 
 @Injectable()
 export class ParkingService {
   constructor(
     @InjectRepository(Parking) private parkingRepository: Repository<Parking>,
+    private checkInFactory: CheckInFactory,
   ) {}
 
   create(createParkingInput: CreateParkingInput) {
@@ -56,5 +60,23 @@ export class ParkingService {
 
   remove(id: number) {
     return `This action removes a #${id} parking`;
+  }
+
+  async checkIn(checkInInput: CheckInInput): Promise<CheckInOutput> {
+    const checkedIn = await this.checkInFactory.checkIn(
+      checkInInput.parkingId,
+      checkInInput.userType as any, // it comes validated from the dto
+    );
+
+    const result = new CheckInOutput();
+    result.status = true;
+
+    if (checkedIn.status === false) {
+      result.status = false;
+      result.errorCode = checkedIn.errorCode;
+      result.message = checkedIn.message;
+    }
+
+    return result;
   }
 }

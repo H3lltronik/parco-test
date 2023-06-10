@@ -38,6 +38,17 @@ type FoundAllParkingOutput {
   data: [Parking!]
 }
 
+type CheckInOutput {
+  """Status of the checkIn"""
+  status: Boolean!
+
+  """Error code"""
+  errorCode: String
+
+  """Error message"""
+  message: String
+}
+
 type Query {
   parkings(
     """Saltar un X numero de paginas"""
@@ -55,6 +66,7 @@ type Query {
 type Mutation {
   createParking(createParkingInput: CreateParkingInput!): Parking!
   updateParking(updateParkingInput: UpdateParkingInput!): Parking!
+  checkIn(checkInInput: CheckInInput!): CheckInOutput!
   removeParking(id: Int!): Parking!
 }
 
@@ -85,4 +97,12 @@ input UpdateParkingInput {
   """Tipo de estacionamiento"""
   parkingType: String
   id: Int!
+}
+
+input CheckInInput {
+  """"""
+  parkingId: Int!
+
+  """"""
+  userType: String!
 }
