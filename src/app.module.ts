@@ -5,6 +5,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ParkingModule } from './parking/parking.module';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 const typeOrm = TypeOrmModule.forRoot({
   type: 'postgres',
@@ -24,7 +26,7 @@ const graphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
 });
 
 @Module({
-  imports: [typeOrm, graphQl, ParkingModule],
+  imports: [typeOrm, graphQl, ParkingModule, AuthModule, UsersModule],
   controllers: [AppController],
   providers: [],
 })

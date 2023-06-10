@@ -49,6 +49,23 @@ type FoundAllParkingOutput {
   data: [Parking!]
 }
 
+type LoginUserOutput {
+  """Access token"""
+  access_token: String!
+}
+
+type MeOutput {
+  username: String!
+}
+
+type SingUpOutput {
+  """Nombre de usuario"""
+  username: String!
+
+  """Contraseña"""
+  password: String!
+}
+
 type Query {
   parkings(
     """Saltar un X numero de paginas"""
@@ -61,6 +78,7 @@ type Query {
     order: String!
   ): FoundAllParkingOutput!
   parking(id: Int): Parking!
+  me: MeOutput!
 }
 
 type Mutation {
@@ -68,6 +86,8 @@ type Mutation {
   updateParking(updateParkingInput: UpdateParkingInput!): Parking!
   checkIn(checkInInput: CheckInInput!): CheckInOutput!
   removeParking(id: Int!): Parking!
+  signup(signupInput: SingUpInput!): SingUpOutput!
+  login(loginInput: LoginUserInput!): LoginUserOutput!
 }
 
 input CreateParkingInput {
@@ -105,4 +125,20 @@ input CheckInInput {
 
   """"""
   userType: String!
+}
+
+input SingUpInput {
+  """Nombre de usuario"""
+  username: String!
+
+  """Contraseña"""
+  password: String!
+}
+
+input LoginUserInput {
+  """Nombre de usuario"""
+  username: String!
+
+  """Contraseña"""
+  password: String!
 }
