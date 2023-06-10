@@ -1,29 +1,8 @@
-// Método checkIn
-// La aplicación debe de tener un caso de uso en el que permita la entrada a un
-// usuario a un estacionamiento. Los parámetros serían los siguientes:
-// ● parkingId
-// ● userType (corporate, provider, visitor)
-// La aplicación debe tener un caso de uso en el que, dependiendo el tipo de usuario
-// y el estacionamiento, se ejecuten una serie de validaciones para determinar si ese
-// usuario puede o no ingresar al estacionamiento. Las reglas son las siguientes:
-// ● public: Para este tipo de estacionamiento no hay validaciones. Cualquier
-// persona puede entrar.
-// ● private: Para este tipo de estacionamiento, solo los usuarios con tipo
-// corporate pueden ingresar. Además, este tipo de estacionamiento solo puede
-// ser usado en días hábiles (lunes a viernes)
-// ● courtesy: Para este tipo, solo están permitidos los tipo visitor y solo está
-// habilitado para los fines de semana.
-// Se espera de este caso de uso que retorne un status indicando el success de la
-// request o un status de error, un errorCode y un mensaje indicando qué sucedió.
-// Además, deberás implementar un patrón de diseño Factory para solucionar este
-// problema
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Parking } from 'src/parking/entities/parking.entity';
 import { Repository } from 'typeorm';
 
-type UserType = 'corporate' | 'provider' | 'visitor';
 enum ParkingType {
   PUBLIC = 'public',
   PRIVATE = 'private',
@@ -33,19 +12,6 @@ enum UserEnum {
   CORPORATE = 'corporate',
   PROVIDER = 'provider',
   VISITOR = 'visitor',
-}
-type CheckInResponse =
-  | {
-      status: true;
-    }
-  | {
-      status: false;
-      errorCode: string;
-      message: string;
-    };
-
-interface CheckInHandler {
-  checkIn(userType: UserType): Promise<CheckInResponse>;
 }
 
 @Injectable()
