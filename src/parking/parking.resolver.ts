@@ -9,6 +9,7 @@ import { Parking } from './entities/parking.entity';
 import { ParkingService } from './parking.service';
 
 @Resolver(() => Parking)
+@UseGuards(JwtAuthGuard)
 export class ParkingResolver {
   constructor(private readonly parkingService: ParkingService) {}
 
@@ -19,7 +20,6 @@ export class ParkingResolver {
     return this.parkingService.create(createParkingInput);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Query(() => FoundAllParkingOutput, { name: 'parkings' })
   async findAll(
     @Args() findAllArgs: FindAllArgs,
