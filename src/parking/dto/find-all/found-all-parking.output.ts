@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Parking } from 'src/parking/entities/parking.entity';
+import { Parking } from '../../entities/parking.entity';
 
 @ObjectType()
 export class FoundAllParkingOutput {

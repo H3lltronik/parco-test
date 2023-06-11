@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Parking } from 'src/parking/entities/parking.entity';
 import { Repository } from 'typeorm';
+import { Parking } from '../../entities/parking.entity';
 
 enum ParkingType {
   PUBLIC = 'public',

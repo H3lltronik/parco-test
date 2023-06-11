@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import request from 'supertest-graphql';
-import { IntegrationTestManager } from 'test/IntegrationTestManager';
-import { testPaking } from 'test/test-data';
+import { IntegrationTestManager } from '../../../test/IntegrationTestManager';
+import { testPaking } from '../../../test/test-data';
 import { Parking } from '../entities/parking.entity';
 
 describe('createParking', () => {
@@ -27,7 +27,6 @@ describe('createParking', () => {
             gql`
               mutation CreateParking($createParkingInput: CreateParkingInput!) {
                 createParking(createParkingInput: $createParkingInput) {
-                  id
                   name
                 }
               }
@@ -43,9 +42,16 @@ describe('createParking', () => {
           })
           .expectNoErrors();
 
+        console.log('response', response);
         createdParking = response.data.createParking;
 
         console.log('createdParking', createdParking);
+      });
+
+      test('Then the created parking should match the test parking', () => {
+        expect(createdParking).toMatchObject({
+          name: testPaking.name,
+        });
       });
     });
   });

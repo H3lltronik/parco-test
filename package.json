@@ -75,9 +75,12 @@
       "json",
       "ts"
     ],
-    "globalSetup": "./test/setup.ts",
-    "globalTeardown": "./test/teardown.ts",
-    "modulePathIgnorePatterns": ["db"],
+    "globalSetup": "<rootDir>/test/setup.ts",
+    "globalTeardown": "<rootDir>/test/teardown.ts",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/$1"
+    },
+    "modulePathIgnorePatterns": ["db", "dist"],
     "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
@@ -86,7 +89,7 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "<rootDir>/coverage",
     "testEnvironment": "node"
   }
 }

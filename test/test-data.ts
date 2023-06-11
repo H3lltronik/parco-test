@@ -1,9 +1,7 @@
-import { Parking } from '../src/parking/entities/parking.entity';
 import { CreateUserDto } from '../src/users/dto/create.dto';
 
-export const testPaking: Parking = {
-  id: 1,
-  name: 'test',
+export const testPaking = {
+  name: 'test 333',
   spots: 50,
   contact: 'si',
   parkingType: 'public',

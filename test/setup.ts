@@ -4,6 +4,7 @@ import { UsersService } from '../src/users/users.service';
 import { testUser } from '../test/test-data';
 
 export default async (): Promise<void> => {
+  console.debug('setup.ts: start');
   const moduleRef = await Test.createTestingModule({
     imports: [AppModule],
   }).compile();

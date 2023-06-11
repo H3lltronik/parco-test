@@ -8,7 +8,7 @@ export default async (): Promise<void> => {
   }).compile();
 
   const app = moduleRef.createNestApplication();
-  await app.init();
+  // await app.init();
 
   const usersService = app.get<UsersService>(UsersService);
 

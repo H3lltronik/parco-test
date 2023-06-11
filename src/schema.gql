@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type LoginUserOutput {
+  """Access token"""
+  access_token: String!
+}
+
+type MeOutput {
+  username: String!
+}
+
+type SingUpOutput {
+  """Nombre de usuario"""
+  username: String!
+
+  """Contraseña"""
+  password: String!
+}
+
 type CheckInOutput {
   """Status of the checkIn"""
   status: Boolean!
@@ -47,23 +64,6 @@ type FoundAllParkingOutput {
 
   """Lista de estacionamientos"""
   data: [Parking!]
-}
-
-type LoginUserOutput {
-  """Access token"""
-  access_token: String!
-}
-
-type MeOutput {
-  username: String!
-}
-
-type SingUpOutput {
-  """Nombre de usuario"""
-  username: String!
-
-  """Contraseña"""
-  password: String!
 }
 
 type Query {

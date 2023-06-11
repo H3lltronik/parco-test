@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.auth-guard';
+import { JwtAuthGuard } from '../auth/guards/jwt.auth-guard';
 import { CheckInInput, CheckInOutput } from './dto/check-in';
 import { CreateParkingInput } from './dto/create-parking';
 import { FindAllArgs, FoundAllParkingOutput } from './dto/find-all';

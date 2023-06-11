@@ -27,8 +27,8 @@ export class IntegrationTestManager {
 
     const user = await usersService.findByUsername(testUser.username);
     const loginResult = await authService.login({
-      password: user.username,
-      username: user.password,
+      password: user.password,
+      username: user.username,
     });
 
     this.accessToken = loginResult.access_token;

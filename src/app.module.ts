@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ParkingModule } from './parking/parking.module';
+import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
+import { ParkingModule } from './parking/parking.module';
 import { UsersModule } from './users/users.module';
 
 const typeOrm = TypeOrmModule.forRoot({
@@ -17,6 +17,7 @@ const typeOrm = TypeOrmModule.forRoot({
   database: 'postgres',
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
+  autoLoadEntities: true,
 });
 
 const graphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
