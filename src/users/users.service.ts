@@ -11,7 +11,7 @@ export class UsersService {
   ) {}
 
   list = () => {
-    return 'list of users';
+    return this.usersRepository.find();
   };
 
   find = (id: number) => {
@@ -39,7 +39,7 @@ export class UsersService {
     return 'update a user';
   };
 
-  delete = () => {
-    return 'delete a user';
+  delete = async (id: number) => {
+    return await this.usersRepository.delete(id);
   };
 }
