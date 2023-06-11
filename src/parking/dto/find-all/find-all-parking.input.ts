@@ -17,5 +17,5 @@ export class FindAllArgs {
   @IsIn(['ASC', 'DESC'], {
     message: 'El orden debe ser ASC o DESC',
   })
-  order: string;
+  order: 'ASC' | 'DESC';
 }

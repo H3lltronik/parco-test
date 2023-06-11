@@ -86,6 +86,7 @@ type Mutation {
   updateParking(updateParkingInput: UpdateParkingInput!): Parking!
   checkIn(checkInInput: CheckInInput!): CheckInOutput!
   removeParking(id: Int!): Parking!
+  fakeData(count: Int!): [Parking!]!
   signup(signupInput: SingUpInput!): SingUpOutput!
   login(loginInput: LoginUserInput!): LoginUserOutput!
 }

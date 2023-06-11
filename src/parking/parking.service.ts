@@ -24,6 +24,7 @@ export class ParkingService {
     const foundItems = await this.parkingRepository.find({
       skip: findAllArgs.skip,
       take: findAllArgs.limit,
+      order: { createdAt: findAllArgs.order },
     });
     const result = new FoundAllParkingOutput();
     result.totalItems = foundItems.length;

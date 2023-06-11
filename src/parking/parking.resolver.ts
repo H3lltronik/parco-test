@@ -1,3 +1,4 @@
+import { faker as Faker } from '@faker-js/faker';
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { JwtAuthGuard } from '../auth/guards/jwt.auth-guard';
@@ -51,5 +52,27 @@ export class ParkingResolver {
   @Mutation(() => Parking)
   removeParking(@Args('id', { type: () => Int }) id: number) {
     return this.parkingService.remove(id);
+  }
+
+  @Mutation(() => [Parking])
+  async fakeData(@Args('count', { type: () => Int }) count: number) {
+    const calls = [];
+    for (let i = 0; i < count; i++) {
+      const createParkingInput: CreateParkingInput = {
+        name: Faker.company.name(),
+        spots: Faker.number.int({ min: 50, max: 100 }),
+        contact: Faker.phone.number(),
+        parkingType: Faker.helpers.arrayElement([
+          'public',
+          'private',
+          'courtes',
+        ]),
+      };
+
+      calls.push(this.parkingService.create(createParkingInput));
+    }
+    const results = await Promise.all(calls);
+
+    return results;
   }
 }

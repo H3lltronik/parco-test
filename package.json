@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.7.3",
+    "@faker-js/faker": "^8.0.2",
     "@nestjs/apollo": "^11.0.6",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
@@ -80,7 +81,10 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/$1"
     },
-    "modulePathIgnorePatterns": ["db", "dist"],
+    "modulePathIgnorePatterns": [
+      "db",
+      "dist"
+    ],
     "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
